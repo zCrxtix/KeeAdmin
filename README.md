@@ -20,5 +20,5 @@ To make a package, go to the Packages file in the LOADER, not source, and follow
 ## Execution
 You can send one or multiple commands in a message:
 
-:speed me | :sit me
-:shutdown
+`:speed me | :sit me`
+`:shutdown`
