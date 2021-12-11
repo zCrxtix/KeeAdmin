@@ -11,7 +11,8 @@ return {
 		level = 0,
 			
 		execute = function(player, args)
-			script.Parent.Parent.GUIs.CommandsUI:Clone().Parent = player.PlayerGui
+			local clone = script.Parent.Parent.GUIs.CommandsUI:Clone()
+			repeat clone.Parent = player.PlayerGui until clone.Parent == player.PlayerGui
 		end,
 	},
 	{
@@ -20,16 +21,18 @@ return {
 		level = 1,
 
 		execute = function(player, args)
-			script.Parent.Parent.GUIs.LogsUI:Clone().Parent = player.PlayerGui
+			local clone = script.Parent.Parent.GUIs.LogsUI:Clone()
+			clone.Parent = player.PlayerGui
 		end,
 	},
 	{
 		name = "info",
-		aliases = {"check"},
+		aliases = {"check", "profile"},
 		level = 1,
 
 		execute = function(player, args)
 			for _,v in pairs(api:GetPlayer(player, args)) do
+				script.Parent.Parent.GUIs.InfoUI:Clone().Parent = player.PlayerGui
 				local ui = v.PlayerGui
 				local info = ui.InfoUI
 				local container = info.Background.Container
@@ -42,7 +45,6 @@ return {
 				if v.MembershipType == Enum.MembershipType.Premium then premium.Text = "Premium: true" else premium.Text = "Premium: false" end
 				name.Text = "Username: "..v.Name
 				id.Text = "UserId: "..v.UserId
-				script.Parent.Parent.GUIs.InfoUI:Clone().Parent = v.PlayerGui
 			end
 		end,
 	},
@@ -57,18 +59,5 @@ return {
 			end
 		end,
 	},
-	{
-		name = "chatcolor",
-		aliases = {},
-		level = 1,
-		
-		execute = function(player, args) --https://devforum.roblox.com/t/how-does-chat-service-work-and-what-can-i-do-with-it/1568578/3, probably not working yet
-			for _,v in pairs(api:GetPlayer(player, args)) do
-				local ChatService = game:GetService("ServerScriptService").ChatServiceRunner.ChatService
-				local Speaker = ChatService:GetSpeaker(v)
-				
-				Speaker:SetExtraData("ChatColor", Color3.fromRGB(255, 255, 0))
-			end
-		end,
-	}
+	
 }
