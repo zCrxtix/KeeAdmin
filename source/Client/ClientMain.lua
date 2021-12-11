@@ -1,9 +1,12 @@
 --[[
 	Handle everything on the client. Commands and GUIs
 ]]
-
 local player = game.Players.LocalPlayer
-local commands = require(script.Parent:WaitForChild("Modules").Commands)
+player.CharacterAdded:Wait()
+local commands = require(script.Parent.Modules.Commands)
+local mouse = player:GetMouse()
+
+--print("Client is awake :o")
 
 player.Chatted:Connect(function(message, recipient)
 	if recipient then return end
@@ -25,5 +28,7 @@ player.Chatted:Connect(function(message, recipient)
 				end
 			end
 		end
+		
 	end	
 end)
+
