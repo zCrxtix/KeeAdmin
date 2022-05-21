@@ -1,55 +1,49 @@
-# **KeeAdmin**
+# **KeeAdmin v2**
 **An administration system to fit all your needs.**
 
 *Fast command execution and easy configuration, you won't be disappointed.*
 
 ## **Packages**
-To make a package, go to the Packages file in `KeeAdmin/CORE/Packages`, and follow this template:
+To make a package, go to the Packages folder in `KeeAdmin/Core/Packages`. You can either make a server or a client sided command.
+To make a package use the following format:
 ```lua
-	{
-		name = "test", --// Name of the command, word used to execute it
-		info = "prints hello world in the console", --// What the command does
-		aliases = {"test2", "veryepic"}, --// Another word to execute it, the list can go on
-		category = "misc", --// Category of command (misc, fun, moderation)
-		level = 0, --// 0 = player, 1 = moderator, 2 = admin, 3 = owner
-		VisibleInCommandList = false, --// Should the command show up in the command list
+{
+	name = "clienttest",
+	aliases = {"clienttest2", "clienttest3"},
+	prefix = ":",
+	description = "Test command for packages on the client",
+	category = "misc",
+	level = 0,
 		
-		execute = function(player, args) --// Function that is run when the command is executed. Player is the player who executed the command. Args is a table of all the words past the command.
-			print("Hello world!")
-		end,
-	}
+	execute = function(player, args)
+		print("Hello from the client!")
+		print(string.format("Player %s sent client test package", player.Name))
+	end,
+}
 ```
-All Packages are Server-sided
 
 ## **Execution** 
-You can send one or more commands in a message. In `KeeAdmin/CORE/Settings`
+To execute a command use the prefix set inside of `KeeAdmin/Core/Configuration`<br>
+You can change `split` or `prefix`<br>
+`split` is used to split commands. For example the '|' in:<br>
+:speed me 15 | :sit me<br>
 
-`:speed me | :sit me`
+`prefix` is used to define a command. For example the ':' in:<br>
+`:speed me 100`
 
-`:shutdown`
+## **Configuration**
+To configure KeeAdmin go to `KeeAdmin/Core/Configuration`.<br>
+`prefix` and `split` see "Execution"
 
-## **Settings**
-```lua
-Prefix = ":", --// What starts your command (ex. the : in :kill me)
-Split = " | ", --// Splits your message into multiple commands (ex. :speed me 50 | :fly me)
+`DataStoreKey` **CHANGE THIS** This is used to save and store your data. Changing it will result in losing all your data. If it is set back data will be restored.
 
-ToolsDirectory = game.ReplicatedStorage, --// Where the tools will be stored 
+It is reccomended to use a users UserId to set their rank. Username also works.<br>
+`Moderators` Level 1<br>
+`Administrators` Level 2<br>
+`Owners` Level 3<br>
 
---// Format "Username" or UserId i.e the 153125476 in https://www.roblox.com/users/153125476/profile
-Moderators = {}, --// Level 1
-Admins = {}, --// Level 2
-Owners = {"zCrxtix", 153125476}, --// Level 3	
+`ToolsDirectory` Where tools are stored
 
-GamePassAdmin = { --// Coming Soon
-	[0] = {
-		0
-	}
-},
-Banned = { --// Add any users you want banned using the format for moderators
-	
-},
-
-FunCommandsEnabled = true, --// Can fun commands be executed
-PlaceOwnerPermissionsEnabled = true, --// Should the owner of the game have Owner permissions
-AdminCreatorPermissionsEnabled = false --// Should the creator of KeeAdmin have Owner Permissions (mostly used for testing)
-```
+`FunCommandsEnabled` Whether or not fun commands are allowed<br>
+`PlaceOwnerPermissionsEnabled` Gives the owner of the game owner permissions
+`AdminCreatorPermissionsEnabled` Gives the creators of KeeAdmin owner permissions
