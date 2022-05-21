@@ -1,7 +1,5 @@
 # **KeeAdmin v2**
-**An administration system to fit all your needs.**
-
-*Fast command execution and easy configuration, you won't be disappointed.*
+**An administration system to fit all your needs, made faster**
 
 ## **Packages**
 To make a package, go to the Packages folder in `KeeAdmin/Core/Packages`. You can either make a server or a client sided command.
